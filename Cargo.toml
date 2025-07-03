@@ -1,12 +1,15 @@
 [package]
-name = "PortScanner"
+name = "portscanner"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [lib]
-name = "PortScanner"
+name = "portscanner"
 crate-type = ["cdylib"]
 
 [dependencies]
-pyo3 = "0.25.0"
+pyo3 = { version = "0.25.0", default-features = false, features = ["extension-module", "macros"] }
+tokio = { version = "1.38", features = ["full"] }
+tokio-postgres = "0.7"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
