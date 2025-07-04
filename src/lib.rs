@@ -6,6 +6,10 @@ use std::net::TcpStream;
 use std::time::Duration;
 use std::net::{IpAddr, Ipv4Addr};
 
+
+mod dbhandler;
+use dbhandler::DBHandler;
+
 #[pyfunction]
 fn validate_ip(user_input : &str) -> PyResult<Vec<(u8, bool)>>{
 
@@ -62,6 +66,8 @@ fn scan_port(ip : Vec<u8>) -> Vec<(u8, bool)> {
         let open = TcpStream::connect_timeout(&addr, Duration::from_secs(1)).is_ok();
         result.push((port as u8, open));
     }
+
+    DBHandler::save_to_db(result.clone()).unwrap();
 
     result
 }
